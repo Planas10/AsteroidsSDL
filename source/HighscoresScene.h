@@ -2,6 +2,7 @@
 
 #include "Scene.h"
 #include "UIText.h"
+#include <fstream>
 
 class HighscoresScene : public Scene {
 

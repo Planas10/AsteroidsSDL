@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\alumne\Desktop\M03UF5-AsteriodsSDL-master\M03UF5-AsteriodsSDL-master\binaries\x64Debug\SDL.exe</FullPath>
+      <FullPath>C:\Users\alumne\Desktop\AsteroidsSDL\binaries\x64Debug\SDL.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />
