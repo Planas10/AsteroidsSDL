@@ -15,6 +15,8 @@ void GameplayScene::OnStart(SDL_Renderer* rend) {
 	gameObjects.push_back(new BigAsteroid(rend, 100.0f));
 }
 
+int score = 0;
+
 void GameplayScene::Update(float dt) {
 
 	currentStateTime += dt;
@@ -88,6 +90,8 @@ void GameplayScene::Update(float dt) {
 					if (distanceSquared < squareRadiusSum) {
 						b->Destroy();
 						a->Destroy();
+						//Add points to score
+						score = score + 10;
 					}
 				}
 				
@@ -121,6 +125,14 @@ void GameplayScene::Update(float dt) {
 			RespawnSpaceShip();
 		}
 		else {
+			//enviar score
+			/*
+			std::ofstream archivoSalida("resources/datos.txt"); // Crear archivo de salida
+			if (!archivoSalida) {
+				std::cerr << "No se pudo crear el archivo de salida.\n";
+				return;
+			}
+			*/
 			finished = true;
 			targetScene = "MainMenu";
 		}

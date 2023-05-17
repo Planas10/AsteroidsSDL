@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Scene.h"
+#include "UIText.h"
 
 class HighscoresScene : public Scene {
 
