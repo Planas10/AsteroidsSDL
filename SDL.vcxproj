@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="source\Asteroid.cpp" />
     <ClCompile Include="source\Bullet.cpp" />
+    <ClCompile Include="source\CreditsScene.cpp" />
     <ClCompile Include="source\GameEngine.cpp" />
     <ClCompile Include="source\GameObject.cpp" />
     <ClCompile Include="source\GameplayScene.cpp" />
@@ -36,6 +37,7 @@
     <ClInclude Include="source\Asteroid.h" />
     <ClInclude Include="source\BigAsteroid.h" />
     <ClInclude Include="source\Bullet.h" />
+    <ClInclude Include="source\CreditsScene.h" />
     <ClInclude Include="source\GameEngine.h" />
     <ClInclude Include="source\GameObject.h" />
     <ClInclude Include="source\GameplayScene.h" />

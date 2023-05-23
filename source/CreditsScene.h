@@ -2,12 +2,11 @@
 
 #include "Scene.h"
 #include "UIText.h"
-#include <fstream>
 
-class HighscoresScene : public Scene {
+class CreditsScene : public Scene {
 
 public:
-	HighscoresScene()
+	CreditsScene()
 		: Scene() {}
 	void OnStart(SDL_Renderer* rend) override;
 	void Update(float dt) override;

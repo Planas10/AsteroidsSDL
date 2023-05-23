@@ -54,6 +54,7 @@ void GameEngine::Update() {
 	gameScenes["MainMenu"] = new MenuScene();
 	gameScenes["Gameplay"] = new GameplayScene();
 	gameScenes["Highscores"] = new HighscoresScene();
+	gameScenes["Credits"] = new CreditsScene();
 
 	Scene* currentScene = gameScenes["MainMenu"];
 	currentScene->OnStart(renderer);

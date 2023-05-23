@@ -9,6 +9,7 @@
 #include "MenuScene.h"
 #include "GameplayScene.h"
 #include "HighscoresScene.h"
+#include "CreditsScene.h"
 
 class GameEngine {
 	

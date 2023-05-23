@@ -6,6 +6,9 @@
 #include "MediumAsteroid.h"
 #include "SmallAsteroid.h"
 #include "Bullet.h"
+#include "UIText.h"
+
+using namespace std;
 
 enum GameplayState {ALIVE, DEAD};
 
@@ -22,14 +25,18 @@ public:
 
 private:
 	Spaceship* spaceship;
+	UIText* scoreText;
 	SDL_Renderer* rend;
 	int rounds = 0;
 
 	GameplayState currentState;
 	int lives;
+	int score = 0;
 	float currentStateTime;
 	const float stateTimeThreshold = 3.0f;
 
 	void DestroySpaceShip();
 	void RespawnSpaceShip();
+
+	//void UpdateScore();
 };

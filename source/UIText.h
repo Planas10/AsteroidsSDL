@@ -17,7 +17,15 @@ protected:
 	void GenerateTexture(SDL_Renderer* rend) override;
 
 public:
-	UIText(SDL_Renderer* rend, Vector2 pos, float rot, Vector2 scl, std::string txt, std::string path, SDL_Color col)
+	UIText(
+		SDL_Renderer* rend,
+		Vector2 pos,
+		float rot,
+		Vector2 scl,
+		std::string txt,
+		std::string path,
+		SDL_Color col
+	)
 		: UIObject(rend, pos, rot, scl), text(txt), fontPath(path), color(col), renderer(rend) {
 		GenerateTexture(rend);
 	}

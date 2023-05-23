@@ -8,18 +8,37 @@ void GameplayScene::OnStart(SDL_Renderer* rend) {
 
 	this->rend = rend;
 
+	score = 0;
+
 	Scene::OnStart(rend);
 
 	RespawnSpaceShip();
 	
 	gameObjects.push_back(new BigAsteroid(rend, 100.0f));
-}
 
-int score = 0;
+	scoreText = new UIText(
+		rend,
+		Vector2(30, 30),
+		0.0f,
+		Vector2(1, 1),
+		"SCORE: 0",
+		"resources/Hyperspace.ttf",
+		{ 0xFF, 0xFF, 0x00, 0xFF }
+	);
+	uiObjects.push_back(scoreText);
+
+}
 
 void GameplayScene::Update(float dt) {
 
+	string scoretext = to_string(score);
+	string Score = "Score:" + scoretext;
+	scoreText->ChangeText(Score);
+
 	currentStateTime += dt;
+
+	cout << Score << endl;
+
 
 	// CHECK IF THERE ARE ASTEROIDS
 	int asteroids = 0;
@@ -50,12 +69,16 @@ void GameplayScene::Update(float dt) {
 			if (a->IsPendingDestroy()) {
 				gameObjects.push_back(new MediumAsteroid(rend, a->GetPosition()));
 				gameObjects.push_back(new MediumAsteroid(rend, a->GetPosition()));
+				//Add points to score
+				score += 50;
 			}
 		}
 		if (Asteroid* a = dynamic_cast<MediumAsteroid*>(gameObjects[i])) {
 			if (a->IsPendingDestroy()) {
 				gameObjects.push_back(new SmallAsteroid(rend, a->GetPosition()));
 				gameObjects.push_back(new SmallAsteroid(rend, a->GetPosition()));
+				//Add points to score
+				score += 30;
 			}
 		}
 	}
@@ -90,8 +113,6 @@ void GameplayScene::Update(float dt) {
 					if (distanceSquared < squareRadiusSum) {
 						b->Destroy();
 						a->Destroy();
-						//Add points to score
-						score = score + 10;
 					}
 				}
 				
@@ -125,14 +146,6 @@ void GameplayScene::Update(float dt) {
 			RespawnSpaceShip();
 		}
 		else {
-			//enviar score
-			/*
-			std::ofstream archivoSalida("resources/datos.txt"); // Crear archivo de salida
-			if (!archivoSalida) {
-				std::cerr << "No se pudo crear el archivo de salida.\n";
-				return;
-			}
-			*/
 			finished = true;
 			targetScene = "MainMenu";
 		}

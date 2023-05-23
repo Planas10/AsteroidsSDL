@@ -16,8 +16,8 @@ Spaceship::Spaceship(SDL_Renderer* renderer, Vector2 pos, float rot, Vector2 scl
 	linearDrag = 1.2f;
 	angularDrag = 6.0f;
 
-	accelerationFactor = 250.0f;					// pxs	/ s^2
-	angularAccelerationFactor = 1000.0f * 45.f;	// degs	/ s^2
+	accelerationFactor = 100.0f;					// pxs	/ s^2
+	angularAccelerationFactor = 500.0f * 45.f;	// degs	/ s^2
 
 	canShot = false;
 	wantsToShot = false;

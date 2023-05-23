@@ -3,8 +3,8 @@
 void UIText::Render(SDL_Renderer* rend) {
 
 	SDL_Rect dest;
-	dest.x = position.x - (int)((float)width * scale.x / 2.0f);
-	dest.y = position.y - (int)((float)height * scale.y / 2.0f);
+	dest.x = position.x;// - (int)((float)width * scale.x / 2.0f);
+	dest.y = position.y;// - (int)((float)height * scale.y / 2.0f);
 	dest.w = (float)width * scale.x;
 	dest.h = (float)height * scale.y;
 

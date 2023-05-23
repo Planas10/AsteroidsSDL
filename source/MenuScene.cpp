@@ -7,10 +7,28 @@ void MenuScene::OnStart(SDL_Renderer* rend) {
 		"resources/sylveon.png",
 		GAME_WIDTH, GAME_HEIGHT, Vector2(20,20)));
 	uiObjects.push_back(new UIText(rend,
-		Vector2(250, 50), 0.0f, Vector2(1, 1),
+		Vector2(200, 50), 0.0f, Vector2(1, 1),
 		"Vaporeon",
 		"resources/Hyperspace.ttf",
 		{ 0xFF, 0xFF, 0x00, 0xFF }));
+	uiObjects.push_back(new UIText(
+		rend,
+		Vector2(100, 460),
+		0.0f,
+		Vector2(1, 1),
+		"HighScore",
+		"resources/Hyperspace.ttf",
+		{ 0xFF, 0xFF, 0x00, 0xFF }
+	));
+	uiObjects.push_back(new UIText(
+		rend,
+		Vector2(300, 460),
+		0.0f,
+		Vector2(1, 1),
+		"Credits",
+		"resources/Hyperspace.ttf",
+		{ 0xFF, 0xFF, 0x00, 0xFF }
+	));
 }
 
 void MenuScene::Update(float dt) {
@@ -27,5 +45,11 @@ void MenuScene::Update(float dt) {
 		// Transition code
 		finished = true;
 		targetScene = "Highscores";
+	}
+
+	if (IM.GetKeyState(SDLK_3, DOWN)) {
+		// Transition code
+		finished = true;
+		targetScene = "Credits";
 	}
 }
