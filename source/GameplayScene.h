@@ -7,6 +7,8 @@
 #include "SmallAsteroid.h"
 #include "Bullet.h"
 #include "UIText.h"
+#include <SDL.h>
+#include <SDL_mixer.h>
 
 using namespace std;
 

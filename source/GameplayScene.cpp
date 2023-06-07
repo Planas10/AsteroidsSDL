@@ -1,7 +1,7 @@
 #include "GameplayScene.h"
 
 void GameplayScene::OnStart(SDL_Renderer* rend) {
-	
+
 	currentState = GameplayState::ALIVE;
 	currentStateTime = 0.0f;
 	lives = 3;
@@ -27,7 +27,17 @@ void GameplayScene::OnStart(SDL_Renderer* rend) {
 	);
 	uiObjects.push_back(scoreText);
 
+	// Inicializar SDL y SDL Mixer
+	SDL_Init(SDL_INIT_AUDIO);
+	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+
+	// Cargar música
+	Mix_Music* music = Mix_LoadMUS("resources/AmongUs_Remix.mp3");
+
+	// Reproducir música en bucle
+	Mix_PlayMusic(music, -1);
 }
+
 
 void GameplayScene::Update(float dt) {
 
