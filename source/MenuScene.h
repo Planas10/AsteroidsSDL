@@ -4,6 +4,8 @@
 #include "UIImage.h"
 #include "UIText.h"
 #include "Utils.h"
+#include <SDL.h>
+#include <SDL_mixer.h>
 
 class MenuScene : public Scene {
 

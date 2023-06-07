@@ -2,6 +2,8 @@
 
 #include "InputManager.h"
 #include "GameObject.h"
+#include <SDL.h>
+#include <SDL_mixer.h>
 
 class Spaceship : public GameObject {
 

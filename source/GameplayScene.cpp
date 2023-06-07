@@ -36,6 +36,9 @@ void GameplayScene::OnStart(SDL_Renderer* rend) {
 
 	// Reproducir música en bucle
 	Mix_PlayMusic(music, -1);
+
+	// Cambiar el volumen a la mitad (rango: 0 - 128)
+	Mix_VolumeMusic(MIX_MAX_VOLUME / 3);
 }
 
 
@@ -68,8 +71,19 @@ void GameplayScene::Update(float dt) {
 
 	// SPAWNERS
 	if (spaceship != nullptr) {
-		if (spaceship->BulletShooted())
+		if (spaceship->BulletShooted()) {
+
+			// Cargar efecto de sonido
+			Mix_Chunk* soundEffect = Mix_LoadWAV("resources/Laser_Shoot.wav");
+
+			// Reproducir efecto de sonido una vez
+			Mix_PlayChannel(-1, soundEffect, 0);
+
+			// Cambiar el volumen a la mitad (rango: 0 - 128)
+			Mix_VolumeMusic(40);
+
 			gameObjects.push_back(new Bullet(rend, spaceship->GetPosition(), spaceship->GetAngle(), 640.0f));
+		}
 	}
 
 	for (int i = 0; i < gameObjects.size(); i++) {
@@ -77,6 +91,14 @@ void GameplayScene::Update(float dt) {
 		if (Asteroid* a = dynamic_cast<BigAsteroid*>(gameObjects[i])) {
 			// CHECK IF ASTEROID HAS TO BE DESTROYED
 			if (a->IsPendingDestroy()) {
+				// Cargar efecto de sonido
+				Mix_Chunk* soundEffect = Mix_LoadWAV("resources/Destroy_Asteroids.wav");
+
+				// Reproducir efecto de sonido una vez
+				Mix_PlayChannel(-1, soundEffect, 0);
+
+				Mix_VolumeMusic(40);
+
 				gameObjects.push_back(new MediumAsteroid(rend, a->GetPosition()));
 				gameObjects.push_back(new MediumAsteroid(rend, a->GetPosition()));
 				//Add points to score
@@ -85,6 +107,14 @@ void GameplayScene::Update(float dt) {
 		}
 		if (Asteroid* a = dynamic_cast<MediumAsteroid*>(gameObjects[i])) {
 			if (a->IsPendingDestroy()) {
+				// Cargar efecto de sonido
+				Mix_Chunk* soundEffect = Mix_LoadWAV("resources/Destroy_Asteroids.wav");
+
+				// Reproducir efecto de sonido una vez
+				Mix_PlayChannel(-1, soundEffect, 0);
+
+				Mix_VolumeMusic(40);
+
 				gameObjects.push_back(new SmallAsteroid(rend, a->GetPosition()));
 				gameObjects.push_back(new SmallAsteroid(rend, a->GetPosition()));
 				//Add points to score
