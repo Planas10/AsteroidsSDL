@@ -39,19 +39,19 @@ void CreditsScene::OnStart(SDL_Renderer* rend) {
 		{ 0xFF, 0xFF, 0x00, 0xFF }));
 	uiObjects.push_back(new UIText(
 		rend,
-		Vector2(100, 450),
+		Vector2(20, 450),
 		0.0f,
-		Vector2(1, 1),
-		"Main Menu",
+		Vector2(1, 1), 
+		"1 > Main Menu",
 		"resources/Hyperspace.ttf",
 		{ 0xFF, 0xFF, 0x00, 0xFF }
 	));
 	uiObjects.push_back(new UIText(
 		rend,
-		Vector2(300, 450),
+		Vector2(270, 450),
 		0.0f,
-		Vector2(1, 1),
-		"HighScore",
+		Vector2(1, 1), 
+		"2 > HighScore",
 		"resources/Hyperspace.ttf",
 		{ 0xFF, 0xFF, 0x00, 0xFF }
 	));
@@ -66,7 +66,7 @@ void CreditsScene::Update(float dt) {
 		finished = true;
 		targetScene = "Highscores";
 	}
-	if (IM.GetKeyState(SDLK_SPACE, DOWN)) {
+	if (IM.GetKeyState(SDLK_1, DOWN)) {
 		// Transition code
 		finished = true;
 		targetScene = "MainMenu";

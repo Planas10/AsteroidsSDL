@@ -36,6 +36,7 @@ public:
 private:
 	Spaceship* spaceship;
 	UIText* scoreText;
+	UIText* exitText;
 	SDL_Renderer* rend;
 	int rounds = 0;
 

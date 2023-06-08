@@ -15,19 +15,28 @@ void MenuScene::OnStart(SDL_Renderer* rend) {
 		{ 0xFF, 0xFF, 0x00, 0xFF }));
 	uiObjects.push_back(new UIText(
 		rend,
-		Vector2(100, 460),
+		Vector2(20, 450),
 		0.0f,
-		Vector2(1, 1),
-		"HighScore",
+		Vector2(1, 1), 
+		"2 > HighScore",
 		"resources/Hyperspace.ttf",
 		{ 0xFF, 0xFF, 0x00, 0xFF }
 	));
 	uiObjects.push_back(new UIText(
 		rend,
-		Vector2(300, 460),
+		Vector2(270, 450),
+		0.0f,
+		Vector2(1, 1), 
+		"3 > Credits",
+		"resources/Hyperspace.ttf",
+		{ 0xFF, 0xFF, 0x00, 0xFF }
+	));
+	uiObjects.push_back(new UIText(
+		rend,
+		Vector2(150, 400),
 		0.0f,
 		Vector2(1, 1),
-		"Credits",
+		"Space > Play",
 		"resources/Hyperspace.ttf",
 		{ 0xFF, 0xFF, 0x00, 0xFF }
 	));
@@ -50,7 +59,7 @@ void MenuScene::Update(float dt) {
 
 	Scene::Update(dt);
 
-	if (IM.GetKeyState(SDLK_1, DOWN)) {
+	if (IM.GetKeyState(SDLK_SPACE, DOWN)) {
 		// Transition code
 		finished = true;
 		targetScene = "Gameplay";

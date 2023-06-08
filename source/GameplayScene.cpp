@@ -38,6 +38,17 @@ void GameplayScene::OnStart(SDL_Renderer* rend) {
 	);
 	uiObjects.push_back(scoreText);
 
+	exitText = new UIText(
+		rend,
+		Vector2(320, 450),
+		0.0f,
+		Vector2(1, 1),
+		"esc > exit",
+		"resources/Hyperspace.ttf",
+		{ 0xFF, 0xFF, 0x00, 0xFF }
+	);
+	uiObjects.push_back(exitText);
+
 	// Inicializar SDL y SDL Mixer
 	SDL_Init(SDL_INIT_AUDIO);
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
@@ -63,6 +74,11 @@ void GameplayScene::Update(float dt) {
 
 	cout << Score << endl;
 
+	if (IM.GetKeyState(SDLK_ESCAPE, DOWN)) {
+		// Transition code
+		finished = true;
+		targetScene = "MainMenu";
+	}
 
 	// CHECK IF THERE ARE ASTEROIDS
 	int asteroids = 0;
