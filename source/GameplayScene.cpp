@@ -6,7 +6,12 @@
 
 void GameplayScene::OnStart(SDL_Renderer* rend) {
 
-	
+	Laser = Mix_LoadWAV("resources/Laser_Shoot.wav");
+	next_level = Mix_LoadWAV("resources/next_level.wav");
+	asteroid = Mix_LoadWAV("resources/Destroy_Asteroids.wav");
+	muerte = Mix_LoadWAV("resources/muerte.wav");
+	game_over = Mix_LoadWAV("resources/game_over.wav");
+	gameplay_music = Mix_LoadMUS("resources/AmongUs_Remix.mp3");
 
 	currentState = GameplayState::ALIVE;
 	currentStateTime = 0.0f;
@@ -36,15 +41,15 @@ void GameplayScene::OnStart(SDL_Renderer* rend) {
 	// Inicializar SDL y SDL Mixer
 	SDL_Init(SDL_INIT_AUDIO);
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
-
-	// Cargar música
-	Mix_Music* music = Mix_LoadMUS("resources/AmongUs_Remix.mp3");
 	// Reproducir música en bucle
-	Mix_PlayMusic(music, -1);
+	Mix_PlayMusic(gameplay_music, -1);
+
+	Mix_VolumeMusic(30);
 	Mix_Volume(-1, 15);
 	Mix_Volume(0, 15);
 	Mix_Volume(1, 15);
 	Mix_Volume(2, 15);
+	Mix_Volume(3, 30);
 }
 
 
@@ -70,11 +75,9 @@ void GameplayScene::Update(float dt) {
 
 	if (asteroids == 0) {
 		rounds++;
-		// Cargar efecto de sonido
-		Mix_Chunk* soundEffect = Mix_LoadWAV("resources/next_level.wav");
 
 		// Reproducir efecto de sonido una vez
-		Mix_PlayChannel(2, soundEffect, 0);
+		Mix_PlayChannel(2, next_level, 0);
 
 		for (int i = 0; i < rounds + 2; i++) {
 			gameObjects.push_back(new BigAsteroid(rend, 100.0f));
@@ -85,15 +88,13 @@ void GameplayScene::Update(float dt) {
 	if (spaceship != nullptr) {
 		if (spaceship->BulletShooted()) {
 
-			// Cargar efecto de sonido
-			Mix_Chunk* soundEffect = Mix_LoadWAV("resources/Laser_Shoot.wav");
 			// Reproducir efecto de sonido una vez
-			Mix_PlayChannel(1, soundEffect, 0);
+			Mix_PlayChannel(1, Laser, 0);
 
 			gameObjects.push_back(new Bullet(rend, spaceship->GetPosition(), spaceship->GetAngle(), 640.0f));
 
 
-			Mix_FreeChunk(soundEffect);
+			//Mix_FreeChunk(soundEffect);
 		}
 
 	}
@@ -103,11 +104,9 @@ void GameplayScene::Update(float dt) {
 		if (Asteroid* a = dynamic_cast<BigAsteroid*>(gameObjects[i])) {
 			// CHECK IF ASTEROID HAS TO BE DESTROYED
 			if (a->IsPendingDestroy()) {
-				// Cargar efecto de sonido
-				Mix_Chunk* soundEffect = Mix_LoadWAV("resources/Destroy_Asteroids.wav");
 
 				// Reproducir efecto de sonido una vez
-				Mix_PlayChannel(1, soundEffect, 0);
+				Mix_PlayChannel(1, asteroid, 0);
 
 				gameObjects.push_back(new MediumAsteroid(rend, a->GetPosition()));
 				gameObjects.push_back(new MediumAsteroid(rend, a->GetPosition()));
@@ -118,11 +117,9 @@ void GameplayScene::Update(float dt) {
 		}
 		if (Asteroid* a = dynamic_cast<MediumAsteroid*>(gameObjects[i])) {
 			if (a->IsPendingDestroy()) {
-				// Cargar efecto de sonido
-				Mix_Chunk* soundEffect = Mix_LoadWAV("resources/Destroy_Asteroids.wav");
 
 				// Reproducir efecto de sonido una vez
-				Mix_PlayChannel(0, soundEffect, 0);
+				Mix_PlayChannel(0, asteroid, 0);
 
 				gameObjects.push_back(new SmallAsteroid(rend, a->GetPosition()));
 				gameObjects.push_back(new SmallAsteroid(rend, a->GetPosition()));
@@ -161,11 +158,10 @@ void GameplayScene::Update(float dt) {
 					squareRadiusSum *= squareRadiusSum;
 
 					if (distanceSquared < squareRadiusSum) {
-						// Cargar efecto de sonido
-						Mix_Chunk* soundEffect = Mix_LoadWAV("resources/Destroy_Asteroids.wav");
 
 						// Reproducir efecto de sonido una vez
-						Mix_PlayChannel(0, soundEffect, 0);
+						Mix_PlayChannel(0, asteroid, 0);
+
 						b->Destroy();
 						a->Destroy();
 					}
@@ -188,11 +184,9 @@ void GameplayScene::Update(float dt) {
 				squareRadiusSum *= squareRadiusSum;
 
 				if (distanceSquared < squareRadiusSum) {
-					// Cargar efecto de sonido
-					Mix_Chunk* soundEffect = Mix_LoadWAV("resources/muerte.wav");
 
 					// Reproducir efecto de sonido una vez
-					Mix_PlayChannel(-1, soundEffect, 0);
+					Mix_PlayChannel(-1, muerte, 0);
 
 					a->Destroy();
 					DestroySpaceShip();
@@ -219,10 +213,8 @@ void GameplayScene::Update(float dt) {
 		{
 			Mix_HaltMusic();
 
-			Mix_Chunk* soundEffect = Mix_LoadWAV("resources/game_over.wav");
-
 			// Reproducir efecto de sonido una vez
-			Mix_PlayChannel(-1, soundEffect, 0);
+			Mix_PlayChannel(-1, game_over, 0);
 		}
 	}
 }

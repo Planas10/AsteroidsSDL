@@ -26,6 +26,13 @@ public:
 	void OnStart(SDL_Renderer* rend) override;
 	void Update(float dt) override;
 
+	Mix_Chunk* Laser;
+	Mix_Chunk* next_level;
+	Mix_Chunk* asteroid;
+	Mix_Music* gameplay_music;
+	Mix_Chunk* muerte;
+	Mix_Chunk* game_over;
+
 private:
 	Spaceship* spaceship;
 	UIText* scoreText;

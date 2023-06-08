@@ -3,7 +3,7 @@
 
 Spaceship::Spaceship(SDL_Renderer* renderer, Vector2 pos, float rot, Vector2 scl) 
 	: GameObject(renderer, 31, 39, Vector2(0,0)) {
-	soundEffect = Mix_LoadWAV("resources/movement.wav");
+	movement = Mix_LoadWAV("resources/movement.wav");
 
 	position = pos;
 	rotation = rot;
@@ -41,7 +41,7 @@ void Spaceship::PlatSoundEffect()
 		canDoSpaceshipMusic = false;
 
 		// Reproducir efecto de sonido una vez
-		Mix_PlayChannel(-1, soundEffect, 0);
+		Mix_PlayChannel(3, movement, 0);
 
 	}
 
@@ -60,7 +60,7 @@ void Spaceship::UpdateMovement(float dt) {
 		acceleration = dir * accelerationFactor;
 	}else if(IM.GetKeyState(SDLK_UP, UP) || IM.GetKeyState(SDLK_DOWN, UP))
 	{
-		Mix_HaltChannel(-1);
+		Mix_HaltChannel(3);
 		canDoSpaceshipMusic = true;
 
 	}

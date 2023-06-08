@@ -36,13 +36,12 @@ void MenuScene::OnStart(SDL_Renderer* rend) {
 	SDL_Init(SDL_INIT_AUDIO);
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 
-	Mix_VolumeMusic(15);
+	Mix_VolumeMusic(30);
 	if (!canDoMusic)
 	{
-		// Cargar música
-		Mix_Music* music = Mix_LoadMUS("resources/Menu_Music.mp3");
+		musicaMenu = Mix_LoadMUS("resources/Menu_Music.mp3");
 		// Reproducir música en bucle
-		Mix_PlayMusic(music, -1);
+		Mix_PlayMusic(musicaMenu, -1);
 		canDoMusic = true;
 	}
 }

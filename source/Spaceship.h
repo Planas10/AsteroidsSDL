@@ -17,7 +17,7 @@ private:
 	void UpdateMovement(float dt) override;
 	void UpdateShot(float dt);
 	bool canDoSpaceshipMusic;
-	Mix_Chunk* soundEffect;
+	Mix_Chunk* movement;
 
 public:
 	Spaceship(SDL_Renderer* renderer, Vector2 pos, float rot, Vector2 scl);

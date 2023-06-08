@@ -15,4 +15,5 @@ public:
 	void OnStart(SDL_Renderer* rend) override;
 	void Update(float dt) override;
 
+	Mix_Music* musicaMenu;
 };
