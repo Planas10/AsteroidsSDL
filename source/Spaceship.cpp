@@ -1,8 +1,10 @@
 #include "Spaceship.h"
 
+
 Spaceship::Spaceship(SDL_Renderer* renderer, Vector2 pos, float rot, Vector2 scl) 
 	: GameObject(renderer, 31, 39, Vector2(0,0)) {
-	
+	soundEffect = Mix_LoadWAV("resources/movement.wav");
+
 	position = pos;
 	rotation = rot;
 	scale = scl;
@@ -32,6 +34,19 @@ void Spaceship::Update(float dt) {
 	UpdateShot(dt);
 }
 
+void Spaceship::PlatSoundEffect()
+{
+	if (canDoSpaceshipMusic)
+	{
+		canDoSpaceshipMusic = false;
+
+		// Reproducir efecto de sonido una vez
+		Mix_PlayChannel(-1, soundEffect, 0);
+
+	}
+
+}
+
 void Spaceship::UpdateMovement(float dt) {
 
 	acceleration = Vector2();
@@ -41,18 +56,29 @@ void Spaceship::UpdateMovement(float dt) {
 		float rotationInRadians = rotation * (M_PI / 180.0f);
 		dir.x = cos(rotationInRadians);
 		dir.y = sin(rotationInRadians);
-
+		PlatSoundEffect();
 		acceleration = dir * accelerationFactor;
+	}else if(IM.GetKeyState(SDLK_UP, UP) || IM.GetKeyState(SDLK_DOWN, UP))
+	{
+		Mix_HaltChannel(-1);
+		canDoSpaceshipMusic = true;
+
 	}
+		
+
+	// Cargar efecto de sonido
 
 	angularAcceleration = 0.0f;
 
 	if (IM.GetKeyState(SDLK_LEFT, DOWN) || IM.GetKeyState(SDLK_LEFT, HOLD)) {
+	
 		angularAcceleration = dt * -angularAccelerationFactor;
 	}
 	else if (IM.GetKeyState(SDLK_RIGHT, DOWN) || IM.GetKeyState(SDLK_RIGHT, HOLD)) {
+		//PlatSoundEffect();
 		angularAcceleration = dt * angularAccelerationFactor;
 	}
+	
 
 	GameObject::UpdateMovement(dt);
 }

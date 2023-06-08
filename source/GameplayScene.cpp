@@ -33,12 +33,11 @@ void GameplayScene::OnStart(SDL_Renderer* rend) {
 
 	// Cargar música
 	Mix_Music* music = Mix_LoadMUS("resources/AmongUs_Remix.mp3");
-
 	// Reproducir música en bucle
 	Mix_PlayMusic(music, -1);
-
-	// Cambiar el volumen a la mitad (rango: 0 - 128)
-	Mix_VolumeMusic(MIX_MAX_VOLUME / 3);
+	Mix_Volume(-1, 15);
+	Mix_Volume(0, 15);
+	Mix_Volume(1, 15);
 }
 
 
@@ -77,10 +76,7 @@ void GameplayScene::Update(float dt) {
 			Mix_Chunk* soundEffect = Mix_LoadWAV("resources/Laser_Shoot.wav");
 
 			// Reproducir efecto de sonido una vez
-			Mix_PlayChannel(-1, soundEffect, 0);
-
-			// Cambiar el volumen a la mitad (rango: 0 - 128)
-			Mix_VolumeMusic(40);
+			Mix_PlayChannel(1, soundEffect, 0);
 
 			gameObjects.push_back(new Bullet(rend, spaceship->GetPosition(), spaceship->GetAngle(), 640.0f));
 		}
@@ -95,12 +91,11 @@ void GameplayScene::Update(float dt) {
 				Mix_Chunk* soundEffect = Mix_LoadWAV("resources/Destroy_Asteroids.wav");
 
 				// Reproducir efecto de sonido una vez
-				Mix_PlayChannel(-1, soundEffect, 0);
-
-				Mix_VolumeMusic(40);
+				Mix_PlayChannel(1, soundEffect, 0);
 
 				gameObjects.push_back(new MediumAsteroid(rend, a->GetPosition()));
 				gameObjects.push_back(new MediumAsteroid(rend, a->GetPosition()));
+
 				//Add points to score
 				score += 50;
 			}
@@ -111,12 +106,11 @@ void GameplayScene::Update(float dt) {
 				Mix_Chunk* soundEffect = Mix_LoadWAV("resources/Destroy_Asteroids.wav");
 
 				// Reproducir efecto de sonido una vez
-				Mix_PlayChannel(-1, soundEffect, 0);
-
-				Mix_VolumeMusic(40);
+				Mix_PlayChannel(0, soundEffect, 0);
 
 				gameObjects.push_back(new SmallAsteroid(rend, a->GetPosition()));
 				gameObjects.push_back(new SmallAsteroid(rend, a->GetPosition()));
+
 				//Add points to score
 				score += 30;
 			}
@@ -151,6 +145,11 @@ void GameplayScene::Update(float dt) {
 					squareRadiusSum *= squareRadiusSum;
 
 					if (distanceSquared < squareRadiusSum) {
+						// Cargar efecto de sonido
+						Mix_Chunk* soundEffect = Mix_LoadWAV("resources/Destroy_Asteroids.wav");
+
+						// Reproducir efecto de sonido una vez
+						Mix_PlayChannel(0, soundEffect, 0);
 						b->Destroy();
 						a->Destroy();
 					}
@@ -173,6 +172,12 @@ void GameplayScene::Update(float dt) {
 				squareRadiusSum *= squareRadiusSum;
 
 				if (distanceSquared < squareRadiusSum) {
+					// Cargar efecto de sonido
+					Mix_Chunk* soundEffect = Mix_LoadWAV("resources/muerte.wav");
+
+					// Reproducir efecto de sonido una vez
+					Mix_PlayChannel(-1, soundEffect, 0);
+
 					a->Destroy();
 					DestroySpaceShip();
 				}
@@ -186,8 +191,21 @@ void GameplayScene::Update(float dt) {
 			RespawnSpaceShip();
 		}
 		else {
+			Mix_HaltMusic();
 			finished = true;
 			targetScene = "MainMenu";
+		}
+	}
+	else
+	{
+		if (lives == 0)
+		{
+			Mix_HaltMusic();
+
+			Mix_Chunk* soundEffect = Mix_LoadWAV("resources/game_over.wav");
+
+			// Reproducir efecto de sonido una vez
+			Mix_PlayChannel(-1, soundEffect, 0);
 		}
 	}
 }

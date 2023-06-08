@@ -13,7 +13,7 @@ void CreditsScene::OnStart(SDL_Renderer* rend) {
 	//Titol
 	uiObjects.push_back(new UIText(
 		rend,
-		Vector2(250, 50),
+		Vector2(200, 50),
 		0.0f,
 		Vector2(1, 1),
 		"Credits",
@@ -22,7 +22,7 @@ void CreditsScene::OnStart(SDL_Renderer* rend) {
 
 	uiObjects.push_back(new UIText(
 		rend,
-		Vector2(250, 150),
+		Vector2(160, 150),
 		0.0f,
 		Vector2(1, 1),
 		creator1,
@@ -31,7 +31,7 @@ void CreditsScene::OnStart(SDL_Renderer* rend) {
 
 	uiObjects.push_back(new UIText(
 		rend,
-		Vector2(250, 200),
+		Vector2(130, 200),
 		0.0f,
 		Vector2(1, 1),
 		creator2,

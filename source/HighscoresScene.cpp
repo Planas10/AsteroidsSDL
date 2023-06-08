@@ -7,7 +7,7 @@ using namespace std;
 void HighscoresScene::OnStart(SDL_Renderer* rend) {
 	Scene::OnStart(rend);
 	uiObjects.push_back(new UIText(rend,
-		Vector2(250, 50), 0.0f, Vector2(1, 1),
+		Vector2(170, 50), 0.0f, Vector2(1, 1),
 		"HighScores",
 		"resources/Hyperspace.ttf",
 		{ 0xFF, 0xFF, 0x00, 0xFF }));
@@ -33,7 +33,7 @@ void HighscoresScene::OnStart(SDL_Renderer* rend) {
 	//	return stoi(a) > stoi(b);
 	//});
 
-	int x_pos = 150;
+	int x_pos = 100;
 	int y_pos = 150;
 	string temp;
 
