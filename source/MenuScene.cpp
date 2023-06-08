@@ -1,6 +1,6 @@
 #include "MenuScene.h"
 
-bool canDoMusic = true;
+bool canDoMusic= false;
 
 void MenuScene::OnStart(SDL_Renderer* rend) {
 	Scene::OnStart(rend);
@@ -37,13 +37,13 @@ void MenuScene::OnStart(SDL_Renderer* rend) {
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 
 	Mix_VolumeMusic(15);
-	if (canDoMusic)
+	if (!canDoMusic)
 	{
 		// Cargar música
 		Mix_Music* music = Mix_LoadMUS("resources/Menu_Music.mp3");
-		canDoMusic = false;
 		// Reproducir música en bucle
 		Mix_PlayMusic(music, -1);
+		canDoMusic = true;
 	}
 }
 
@@ -55,6 +55,8 @@ void MenuScene::Update(float dt) {
 		// Transition code
 		finished = true;
 		targetScene = "Gameplay";
+
+		canDoMusic = false;
 	}
 	
 	if (IM.GetKeyState(SDLK_2, DOWN)) {

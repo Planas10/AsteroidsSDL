@@ -1,6 +1,12 @@
 #include "GameplayScene.h"
+#include "MenuScene.h"
+
+
+
 
 void GameplayScene::OnStart(SDL_Renderer* rend) {
+
+	
 
 	currentState = GameplayState::ALIVE;
 	currentStateTime = 0.0f;
@@ -38,6 +44,7 @@ void GameplayScene::OnStart(SDL_Renderer* rend) {
 	Mix_Volume(-1, 15);
 	Mix_Volume(0, 15);
 	Mix_Volume(1, 15);
+	Mix_Volume(2, 15);
 }
 
 
@@ -63,6 +70,12 @@ void GameplayScene::Update(float dt) {
 
 	if (asteroids == 0) {
 		rounds++;
+		// Cargar efecto de sonido
+		Mix_Chunk* soundEffect = Mix_LoadWAV("resources/next_level.wav");
+
+		// Reproducir efecto de sonido una vez
+		Mix_PlayChannel(2, soundEffect, 0);
+
 		for (int i = 0; i < rounds + 2; i++) {
 			gameObjects.push_back(new BigAsteroid(rend, 100.0f));
 		}
@@ -74,12 +87,15 @@ void GameplayScene::Update(float dt) {
 
 			// Cargar efecto de sonido
 			Mix_Chunk* soundEffect = Mix_LoadWAV("resources/Laser_Shoot.wav");
-
 			// Reproducir efecto de sonido una vez
 			Mix_PlayChannel(1, soundEffect, 0);
 
 			gameObjects.push_back(new Bullet(rend, spaceship->GetPosition(), spaceship->GetAngle(), 640.0f));
+
+
+			Mix_FreeChunk(soundEffect);
 		}
+
 	}
 
 	for (int i = 0; i < gameObjects.size(); i++) {
@@ -192,6 +208,7 @@ void GameplayScene::Update(float dt) {
 		}
 		else {
 			Mix_HaltMusic();
+
 			finished = true;
 			targetScene = "MainMenu";
 		}
